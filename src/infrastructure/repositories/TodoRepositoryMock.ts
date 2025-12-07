@@ -2,24 +2,34 @@ import { inject, injectable } from 'tsyringe';
 import type { ITodo } from '@/domain/entities';
 import type { ITodoRepository } from '@/domain/repositories';
 import type { MockTodoApi } from '../http';
+import { mapApiTodosToDomain, mapApiTodoToDomain } from '../mappers';
 
 @injectable()
 export class TodoRepositoryMock implements ITodoRepository {
   constructor(@inject('MockTodoApi') private api: MockTodoApi) {}
 
-  getAll(): Promise<ITodo[]> {
-    return this.api.getTodos();
+  async getAll(): Promise<ITodo[]> {
+    const apiTodos = await this.api.getTodos();
+    return mapApiTodosToDomain(apiTodos);
   }
 
-  getById(id: string): Promise<ITodo | null> {
-    return this.api.getTodoById(id);
+  async getById(id: string): Promise<ITodo | null> {
+    const apiTodo = await this.api.getTodoById(id);
+
+    if (!apiTodo) return null;
+
+    return mapApiTodoToDomain(apiTodo);
   }
 
-  create(title: string): Promise<ITodo> {
-    return this.api.createTodo(title);
+  async create(title: string): Promise<ITodo> {
+    const apiTodo = await this.api.createTodo(title);
+
+    return mapApiTodoToDomain(apiTodo);
   }
 
-  toggle(id: string): Promise<ITodo> {
-    return this.api.toggleTodo(id);
+  async toggle(id: string): Promise<ITodo> {
+    const apiTodo = await this.api.toggleTodo(id);
+
+    return mapApiTodoToDomain(apiTodo);
   }
 }

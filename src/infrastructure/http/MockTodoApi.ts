@@ -1,33 +1,33 @@
-import type { ITodo } from '@/domain/entities';
+import type { ApiTodo } from './models/ApiTodo';
 
-let todosMock: ITodo[] = [
+let todosMock: ApiTodo[] = [
   {
     id: '1',
     title: 'Aprender Clean Architecture en front',
     completed: false,
-    createdAt: new Date(),
+    created_at: new Date().toISOString(),
   },
   {
     id: '2',
     title: 'Integrar tsyringe con React',
     completed: true,
-    createdAt: new Date(Date.now() - 1000 * 60 * 60),
+    created_at: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
   },
   {
     id: '3',
     title: 'Implementar casos de uso',
     completed: false,
-    createdAt: new Date(Date.now() - 1000 * 60 * 30),
-  }
+    created_at: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+  },
 ];
 
 export class MockTodoApi {
-  async getTodos(): Promise<ITodo[]> {
+  async getTodos(): Promise<ApiTodo[]> {
     await new Promise((resolve) => setTimeout(resolve, 500));
     return structuredClone(todosMock);
   }
 
-  async getTodoById(id: string): Promise<ITodo | null> {
+  async getTodoById(id: string): Promise<ApiTodo | null> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     const todo = todosMock.find((todo) => todo.id === id);
@@ -37,14 +37,14 @@ export class MockTodoApi {
     return structuredClone(todo);
   }
 
-  async createTodo(title: string): Promise<ITodo> {
+  async createTodo(title: string): Promise<ApiTodo> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    const newTodo: ITodo = {
+    const newTodo: ApiTodo = {
       id: crypto.randomUUID(),
       title,
       completed: false,
-      createdAt: new Date(),
+      created_at: new Date().toISOString(),
     };
 
     todosMock = [newTodo, ...todosMock];
@@ -52,7 +52,7 @@ export class MockTodoApi {
     return structuredClone(newTodo);
   }
 
-  async toggleTodo(id: string): Promise<ITodo> {
+  async toggleTodo(id: string): Promise<ApiTodo> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     const todoIndex = todosMock.findIndex((todo) => todo.id === id);
