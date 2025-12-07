@@ -8,17 +8,10 @@ export class ToggleTodoUseCase implements IUseCase<string, ITodo> {
   constructor(@inject('ITodoRepository') private todoRepository: ITodoRepository) {}
 
   async execute(id: string): Promise<ITodo> {
-    if (!id || id.trim().length === 0) {
-      throw new Error('ID is required');
+    if (!id) {
+      throw new Error('Id is required');
     }
-
-    const todo = await this.todoRepository.getById(id);
-    if (!todo) {
-      throw new Error('Todo not found');
-    }
-
-    await this.todoRepository.toggle(id);
-
-    return { ...todo, completed: !todo.completed };
+    
+    return this.todoRepository.toggle(id);
   }
 }

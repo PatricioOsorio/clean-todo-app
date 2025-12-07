@@ -9,19 +9,13 @@ export class CreateTodoUseCase implements IUseCase<ICreateTodoDTO, ITodo> {
   constructor(@inject('ITodoRepository') private todoRepository: ITodoRepository) {}
 
   async execute(input: ICreateTodoDTO): Promise<ITodo> {
-    if (!input.title || input.title.trim().length === 0) {
+    const title = input.title?.trim();
+    if (!title) {
       throw new Error('Title is required');
     }
 
-    const todo: ITodo = {
-      id: crypto.randomUUID(),
-      title: input.title,
-      completed: false,
-      createdAt: new Date(),
-    };
+    const newTodo = this.todoRepository.create(title);
 
-    await this.todoRepository.create(todo);
-
-    return todo;
+    return newTodo;
   }
 }

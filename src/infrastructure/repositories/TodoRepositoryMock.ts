@@ -15,8 +15,8 @@ export class TodoRepositoryMock implements ITodoRepository {
     return this.api.getTodoById(id);
   }
 
-  create(todo: ITodo): Promise<ITodo> {
-    return this.api.createTodo(todo.title);
+  create(title: string): Promise<ITodo> {
+    return this.api.createTodo(title);
   }
 
   toggle(id: string): Promise<ITodo> {
