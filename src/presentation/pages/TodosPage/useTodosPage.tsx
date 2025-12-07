@@ -1,7 +1,7 @@
 import { CreateTodoUseCase, GetTodosUseCase, ToggleTodoUseCase } from '@/application/usecases';
+import { mapTodosToUI, mapTodoToUI } from '@/presentation/mappers';
 import { useEffect, useState } from 'react';
 import { useInjection } from '@/shared/hooks/useInjection';
-import { mapTodosToUI, mapTodoToUI } from '@/presentation/mappers';
 import type { ITodoUI } from '@/presentation/models';
 
 export const useTodosPage = () => {
@@ -14,16 +14,18 @@ export const useTodosPage = () => {
   const createTodoUseCase = useInjection(CreateTodoUseCase);
 
   const fetchTodos = async () => {
-    try {
-      setLoading(true);
-      const todosDomain = await getTodosUseCase.execute();
+    setLoading(true);
 
+    const result = await getTodosUseCase.execute();
+
+    if (result.ok) {
+      const todosDomain = result.value;
       setTodos(mapTodosToUI(todosDomain));
-    } catch (error) {
-      console.error('Error fetching todos:', error);
-    } finally {
-      setLoading(false);
+    } else {
+      console.error(result.error);
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -31,14 +33,17 @@ export const useTodosPage = () => {
   }, []);
 
   const handleToggleTodo = async (id: string) => {
-    try {
-      await toggleTodoUseCase.execute(id);
-      setTodos((prevTodos) =>
-        prevTodos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo))
-      );
-    } catch (error) {
-      console.error('Error toggling todo:', error);
+    const result = await toggleTodoUseCase.execute(id);
+
+    if (!result.ok) {
+      console.error(result.error);
+      return;
     }
+
+    const toggledDomain = result.value;
+    const toggledUI = mapTodoToUI(toggledDomain);
+
+    setTodos((prev) => prev.map((t) => (t.id === id ? toggledUI : t)));
   };
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,14 +53,18 @@ export const useTodosPage = () => {
   const handleAddTodo = async () => {
     if (!value.trim()) return;
 
-    try {
-      const createdDomain = await createTodoUseCase.execute({ title: value });
+    const result = await createTodoUseCase.execute({ title: value });
 
-      setTodos((prev) => [mapTodoToUI(createdDomain), ...prev]);
-      setValue('');
-    } catch (error) {
-      console.error('Error creating todo:', error);
+    if (!result.ok) {
+      console.error(result.error);
+      return;
     }
+
+    const createdDomain = result.value;
+    const createdUI = mapTodoToUI(createdDomain);
+
+    setTodos((prev) => [createdUI, ...prev]);
+    setValue('');
   };
 
   return {

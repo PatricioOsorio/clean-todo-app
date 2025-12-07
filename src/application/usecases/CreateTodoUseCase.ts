@@ -1,3 +1,4 @@
+import { err, ok, type IResult } from '@/shared/utils';
 import { inject, injectable } from 'tsyringe';
 import type { ICreateTodoDTO } from '../dtos';
 import type { ITodo } from '@/domain/entities';
@@ -8,14 +9,17 @@ import type { IUseCase } from './IUseCase';
 export class CreateTodoUseCase implements IUseCase<ICreateTodoDTO, ITodo> {
   constructor(@inject('ITodoRepository') private todoRepository: ITodoRepository) {}
 
-  async execute(input: ICreateTodoDTO): Promise<ITodo> {
+  async execute(input: ICreateTodoDTO): Promise<IResult<ITodo>> {
     const title = input.title?.trim();
     if (!title) {
-      throw new Error('Title is required');
+      return err(new Error('Title is required'));
     }
 
-    const newTodo = this.todoRepository.create(title);
-
-    return newTodo;
+    try {
+      const newTodo = await this.todoRepository.create(title);
+      return ok(newTodo);
+    } catch (e) {
+      return err(e as Error);
+    }
   }
 }
