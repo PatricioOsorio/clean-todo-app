@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { ok, type IResult } from '@/shared/utils';
+import { err, ok, type IResult } from '@/shared/utils';
 import { TOKENS } from '@/infrastructure/di';
 import type { ITodo } from '@/domain/entities';
 import type { ITodoRepository } from '@/domain/repositories';
@@ -11,11 +11,14 @@ export class ToggleTodoUseCase implements IUseCase<string, ITodo> {
 
   async execute(id: string): Promise<IResult<ITodo>> {
     if (!id) {
-      throw new Error('Id is required');
+      throw err(new Error('Id is required'));
     }
 
-    const toggledTodo = await this.todoRepository.toggle(id);
-
-    return ok(toggledTodo);
+    try {
+      const toggledTodo = await this.todoRepository.toggle(id);
+      return ok(toggledTodo);
+    } catch (error) {
+      return err(error as Error);
+    }
   }
 }

@@ -10,8 +10,8 @@ import type { IUseCase } from './IUseCase';
 export class CreateTodoUseCase implements IUseCase<ICreateTodoDTO, ITodo> {
   constructor(@inject(TOKENS.TodoRepository) private todoRepository: ITodoRepository) {}
 
-  async execute(input: ICreateTodoDTO): Promise<IResult<ITodo>> {
-    const title = input.title?.trim();
+  async execute(input?: ICreateTodoDTO): Promise<IResult<ITodo>> {
+    const title = input?.title?.trim();
     if (!title) {
       return err(new Error('Title is required'));
     }

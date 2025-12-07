@@ -1,1 +1,1 @@
-export * from './TodoUI.ts';
+export * from './ITodoUI.ts';
