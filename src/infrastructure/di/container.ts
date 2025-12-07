@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
-import { MockTodoApi } from '../http/MockTodoApi';
-import type { ITodoRepository } from '@/domain/repositories/ITodoRepository';
-import { TodoRepositoryMock } from '../repositories/TodoRepositoryMock';
+import { MockTodoApi } from '../http';
+import type { ITodoRepository } from '@/domain/repositories';
+import { TodoRepositoryMock } from '../repositories';
 
 // Repositories
 container.register<MockTodoApi>('MockTodoApi', {

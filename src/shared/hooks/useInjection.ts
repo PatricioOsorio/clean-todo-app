@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { DependencyContainer } from 'tsyringe';
-import { container as globalContainer } from '@infrastructure/di/container';
+import { container as globalContainer } from '@infrastructure/di';
 
 export function useInjection<T>(token: string | symbol): T {
   // En un proyecto más grande podrías tener un contexto de container

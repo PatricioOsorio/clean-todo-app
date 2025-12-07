@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
-import type { ICreateTodoDTO } from '../dtos/CreateTodoDTO';
-import type { ITodo } from '@/domain/entities/Todo';
-import type { ITodoRepository } from '@/domain/repositories/ITodoRepository';
+import type { ICreateTodoDTO } from '../dtos';
+import type { ITodo } from '@/domain/entities';
+import type { ITodoRepository } from '@/domain/repositories';
 import type { IUseCase } from './IUseCase';
 
 @injectable()

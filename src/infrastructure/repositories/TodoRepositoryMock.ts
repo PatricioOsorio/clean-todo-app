@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe';
-import type { ITodo } from '@/domain/entities/Todo';
-import type { ITodoRepository } from '@/domain/repositories/ITodoRepository';
-import type { MockTodoApi } from '../http/MockTodoApi';
+import type { ITodo } from '@/domain/entities';
+import type { ITodoRepository } from '@/domain/repositories';
+import type { MockTodoApi } from '../http';
 
 @injectable()
 export class TodoRepositoryMock implements ITodoRepository {

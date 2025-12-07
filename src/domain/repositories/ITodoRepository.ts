@@ -1,4 +1,4 @@
-import type { ITodo } from '../entities/Todo';
+import type { ITodo } from '../entities';
 
 export interface ITodoRepository {
   getAll(): Promise<ITodo[]>;

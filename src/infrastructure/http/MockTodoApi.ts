@@ -1,4 +1,4 @@
-import type { ITodo } from '@/domain/entities/Todo';
+import type { ITodo } from '@/domain/entities';
 
 let todosMock: ITodo[] = [
   {
