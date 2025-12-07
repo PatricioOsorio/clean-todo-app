@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import './infrastructure/di/container'
+import './app/di/container'
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';

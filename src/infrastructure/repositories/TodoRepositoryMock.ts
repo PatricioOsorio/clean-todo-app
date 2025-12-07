@@ -1,13 +1,12 @@
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 import { mapApiTodosToDomain, mapApiTodoToDomain } from '../mappers';
-import { TOKENS } from '@/shared/di';
 import type { ITodo } from '@/domain/entities';
 import type { ITodoApi } from '../http/models';
 import type { ITodoRepository } from '@/domain/repositories';
 
 @injectable()
 export class TodoRepositoryMock implements ITodoRepository {
-  constructor(@inject(TOKENS.TodoApi) private api: ITodoApi) {}
+  constructor(private readonly api: ITodoApi) {}
 
   async getAll(): Promise<ITodo[]> {
     const apiTodos = await this.api.getTodos();

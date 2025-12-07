@@ -1,8 +1,8 @@
 import { CreateTodoUseCase, GetTodosUseCase, ToggleTodoUseCase } from '@/application/usecases';
 import { mapTodosToUI, mapTodoToUI } from '@/presentation/mappers';
 import { useEffect, useState } from 'react';
-import { useInjection } from '@/shared/hooks/useInjection';
 import type { ITodoUI } from '@/presentation/models';
+import { useInjection } from '@/app/di';
 
 export const useTodosPage = () => {
   const [value, setValue] = useState('');

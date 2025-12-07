@@ -33,6 +33,7 @@
     "paths": {
       "@/*": ["src/*"],
       "@domain/*": ["src/domain/*"],
+      "@app/*": ["src/app/*"],
       "@application/*": ["src/application/*"],
       "@infrastructure/*": ["src/infrastructure/*"],
       "@presentation/*": ["src/presentation/*"]
