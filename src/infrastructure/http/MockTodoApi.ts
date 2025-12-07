@@ -1,3 +1,4 @@
+import { err } from '@/shared/utils';
 import type { ApiTodo } from './models/ApiTodo';
 
 let todosMock: ApiTodo[] = [
@@ -57,7 +58,7 @@ export class MockTodoApi {
 
     const todoIndex = todosMock.findIndex((todo) => todo.id === id);
     if (todoIndex === -1) {
-      throw new Error('Todo not found');
+      throw err(new Error('Todo not found'));
     }
 
     todosMock[todoIndex].completed = !todosMock[todoIndex].completed;
