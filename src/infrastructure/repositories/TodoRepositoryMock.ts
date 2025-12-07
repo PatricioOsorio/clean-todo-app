@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
 import { mapApiTodosToDomain, mapApiTodoToDomain } from '../mappers';
-import { TOKENS } from '../di';
+import { TOKENS } from '@/shared/di';
 import type { ITodo } from '@/domain/entities';
-import type { ITodoRepository } from '@/domain/repositories';
 import type { ITodoApi } from '../http/models';
+import type { ITodoRepository } from '@/domain/repositories';
 
 @injectable()
 export class TodoRepositoryMock implements ITodoRepository {

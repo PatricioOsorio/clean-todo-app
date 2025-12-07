@@ -2,9 +2,9 @@ import { container } from 'tsyringe';
 import { CreateTodoUseCase, GetTodosUseCase, ToggleTodoUseCase } from '@/application/usecases';
 import { MockTodoApi } from '../http';
 import { TodoRepositoryMock } from '../repositories';
-import { TOKENS } from './tokens';
-import type { ITodoRepository } from '@/domain/repositories';
+import { TOKENS } from '@/shared/di';
 import type { ITodoApi } from '../http/models';
+import type { ITodoRepository } from '@/domain/repositories';
 
 // const USE_MOCK = true;
 

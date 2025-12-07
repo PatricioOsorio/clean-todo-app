@@ -1,6 +1,6 @@
 import { err, ok, type IResult } from '@/shared/utils';
 import { inject, injectable } from 'tsyringe';
-import { TOKENS } from '@/infrastructure/di';
+import { TOKENS } from '@/shared/di';
 import type { ICreateTodoDTO } from '../dtos';
 import type { ITodo } from '@/domain/entities';
 import type { ITodoRepository } from '@/domain/repositories';

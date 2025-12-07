@@ -1,4 +1,3 @@
-import { err } from '@/shared/utils';
 import type { ITodoApi } from './models';
 import type { ITodoEntity } from './models/ITodoEntity';
 
@@ -59,7 +58,7 @@ export class MockTodoApi implements ITodoApi {
 
     const todoIndex = todosMock.findIndex((todo) => todo.id === id);
     if (todoIndex === -1) {
-      throw err(new Error('Todo not found'));
+      throw new Error('Todo not found');
     }
 
     todosMock[todoIndex].completed = !todosMock[todoIndex].completed;
