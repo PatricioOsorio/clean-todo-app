@@ -13,20 +13,20 @@ export const useTodosPage = () => {
   const toggleTodoUseCase = useInjection(ToggleTodoUseCase);
   const createTodoUseCase = useInjection(CreateTodoUseCase);
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        setLoading(true);
-        const todosDomain = await getTodosUseCase.execute();
-        
-        setTodos(mapTodosToUI(todosDomain));
-      } catch (error) {
-        console.error('Error fetching todos:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchTodos = async () => {
+    try {
+      setLoading(true);
+      const todosDomain = await getTodosUseCase.execute();
 
+      setTodos(mapTodosToUI(todosDomain));
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchTodos();
   }, []);
 

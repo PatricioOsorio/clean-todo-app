@@ -1,5 +1,5 @@
 import type { ITodo } from '@/domain/entities';
-import type { ITodoUI } from '../models/TodoUID.ts';
+import type { ITodoUI } from '../models/TodoUI.ts';
 
 export const mapTodoToUI = (todo: ITodo): ITodoUI => ({
   id: todo.id,
