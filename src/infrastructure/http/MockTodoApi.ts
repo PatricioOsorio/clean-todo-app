@@ -13,6 +13,12 @@ let todosMock: ITodo[] = [
     completed: true,
     createdAt: new Date(Date.now() - 1000 * 60 * 60),
   },
+  {
+    id: '3',
+    title: 'Implementar casos de uso',
+    completed: false,
+    createdAt: new Date(Date.now() - 1000 * 60 * 30),
+  }
 ];
 
 export class MockTodoApi {
@@ -31,7 +37,7 @@ export class MockTodoApi {
     return structuredClone(todo);
   }
 
-  async createTodo(title: string): Promise<boolean> {
+  async createTodo(title: string): Promise<ITodo> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     const newTodo: ITodo = {
@@ -43,7 +49,7 @@ export class MockTodoApi {
 
     todosMock = [newTodo, ...todosMock];
 
-    return true;
+    return structuredClone(newTodo);
   }
 
   async toggleTodo(id: string): Promise<ITodo> {

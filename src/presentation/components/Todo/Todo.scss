@@ -1,0 +1,21 @@
+.todo-container,
+.todo-container .tc {
+  border: 1px solid;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--border-radius);
+  border-color: var(--surface-border);
+  background-color: var(--surface-card);
+  padding: 0.5rem 1rem;
+
+  &__title {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  &__end {
+  }
+}

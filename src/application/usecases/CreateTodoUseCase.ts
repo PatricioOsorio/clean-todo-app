@@ -5,10 +5,10 @@ import type { ITodoRepository } from '@/domain/repositories';
 import type { IUseCase } from './IUseCase';
 
 @injectable()
-export class CreateTodoUseCase implements IUseCase<ICreateTodoDTO, boolean> {
+export class CreateTodoUseCase implements IUseCase<ICreateTodoDTO, ITodo> {
   constructor(@inject('ITodoRepository') private todoRepository: ITodoRepository) {}
 
-  async execute(input: ICreateTodoDTO): Promise<boolean> {
+  async execute(input: ICreateTodoDTO): Promise<ITodo> {
     if (!input.title || input.title.trim().length === 0) {
       throw new Error('Title is required');
     }
@@ -22,6 +22,6 @@ export class CreateTodoUseCase implements IUseCase<ICreateTodoDTO, boolean> {
 
     await this.todoRepository.create(todo);
 
-    return true;
+    return todo;
   }
 }
