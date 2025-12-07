@@ -1,4 +1,4 @@
-export interface ApiTodo {
+export interface ITodoEntity {
   id: string;
   title: string;
   completed: boolean;

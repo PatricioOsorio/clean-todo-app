@@ -1,7 +1,8 @@
 import { err } from '@/shared/utils';
-import type { ApiTodo } from './models/ApiTodo';
+import type { ITodoApi } from './models';
+import type { ITodoEntity } from './models/ITodoEntity';
 
-let todosMock: ApiTodo[] = [
+let todosMock: ITodoEntity[] = [
   {
     id: '1',
     title: 'Aprender Clean Architecture en front',
@@ -22,13 +23,13 @@ let todosMock: ApiTodo[] = [
   },
 ];
 
-export class MockTodoApi {
-  async getTodos(): Promise<ApiTodo[]> {
+export class MockTodoApi implements ITodoApi {
+  async getTodos(): Promise<ITodoEntity[]> {
     await new Promise((resolve) => setTimeout(resolve, 500));
     return structuredClone(todosMock);
   }
 
-  async getTodoById(id: string): Promise<ApiTodo | null> {
+  async getTodoById(id: string): Promise<ITodoEntity | null> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     const todo = todosMock.find((todo) => todo.id === id);
@@ -38,10 +39,10 @@ export class MockTodoApi {
     return structuredClone(todo);
   }
 
-  async createTodo(title: string): Promise<ApiTodo> {
+  async createTodo(title: string): Promise<ITodoEntity> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    const newTodo: ApiTodo = {
+    const newTodo: ITodoEntity = {
       id: crypto.randomUUID(),
       title,
       completed: false,
@@ -53,7 +54,7 @@ export class MockTodoApi {
     return structuredClone(newTodo);
   }
 
-  async toggleTodo(id: string): Promise<ApiTodo> {
+  async toggleTodo(id: string): Promise<ITodoEntity> {
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     const todoIndex = todosMock.findIndex((todo) => todo.id === id);

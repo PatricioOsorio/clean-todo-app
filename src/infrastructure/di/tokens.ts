@@ -1,4 +1,4 @@
 export const TOKENS = {
   TodoRepository: 'ITodoRepository',
-  MockTodoApi: 'MockTodoApi',
+  TodoApi: 'ITodoApi',
 } as const;

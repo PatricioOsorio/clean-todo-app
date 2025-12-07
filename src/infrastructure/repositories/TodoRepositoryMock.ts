@@ -3,11 +3,11 @@ import { mapApiTodosToDomain, mapApiTodoToDomain } from '../mappers';
 import { TOKENS } from '../di';
 import type { ITodo } from '@/domain/entities';
 import type { ITodoRepository } from '@/domain/repositories';
-import type { MockTodoApi } from '../http';
+import type { ITodoApi } from '../http/models';
 
 @injectable()
 export class TodoRepositoryMock implements ITodoRepository {
-  constructor(@inject(TOKENS.MockTodoApi) private api: MockTodoApi) {}
+  constructor(@inject(TOKENS.TodoApi) private api: ITodoApi) {}
 
   async getAll(): Promise<ITodo[]> {
     const apiTodos = await this.api.getTodos();
