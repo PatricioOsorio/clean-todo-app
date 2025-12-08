@@ -22,14 +22,19 @@ let todosMock: ITodoEntity[] = [
   },
 ];
 
+// function simulateDelay(ms: number = 500) {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
+
 export class MockTodoApi implements ITodoApi {
   async getTodos(): Promise<ITodoEntity[]> {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // await simulateDelay();
+
     return structuredClone(todosMock);
   }
 
   async getTodoById(id: string): Promise<ITodoEntity | null> {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // await simulateDelay();
 
     const todo = todosMock.find((todo) => todo.id === id);
 
@@ -39,7 +44,7 @@ export class MockTodoApi implements ITodoApi {
   }
 
   async createTodo(title: string): Promise<ITodoEntity> {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    //  await simulateDelay();
 
     const newTodo: ITodoEntity = {
       id: crypto.randomUUID(),
@@ -54,7 +59,7 @@ export class MockTodoApi implements ITodoApi {
   }
 
   async toggleTodo(id: string): Promise<ITodoEntity> {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // await simulateDelay();
 
     const todoIndex = todosMock.findIndex((todo) => todo.id === id);
     if (todoIndex === -1) {

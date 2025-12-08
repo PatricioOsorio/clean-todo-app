@@ -1,24 +1,30 @@
 import { container } from 'tsyringe';
 import { CreateTodoUseCase, GetTodosUseCase, ToggleTodoUseCase } from '@/application/usecases';
-import { MockTodoApi } from '@/infrastructure/http';
-import { TodoRepositoryMock } from '@/infrastructure/repositories';
+import { MockTodoApi, MockTodoApiLocalStorage } from '@/infrastructure/http';
+import { TodoRepository } from '@/infrastructure/repositories';
 import type { ITodoApi } from '@/infrastructure/http/models';
 import type { ITodoRepository } from '@/domain/repositories';
 import { TOKENS } from './tokens';
 
-// const USE_MOCK = true;
+type mockType = 'mock' | 'localStorageMock' | 'api';
+const USE_MOCK: mockType = 'localStorageMock';
+
+const mockImplementations: Record<mockType, typeof MockTodoApi> = {
+  mock: MockTodoApi,
+  localStorageMock: MockTodoApiLocalStorage,
+  api: MockTodoApi,
+};
 
 // ! Repositories
 container.register<ITodoApi>(TOKENS.TodoApi, {
-  useClass: MockTodoApi,
-  // useClass: USE_MOCK ? MockTodoApi : SomeOtherTodoApiImplementation,
+  useClass: mockImplementations[USE_MOCK],
 });
 
 // ! Use Cases
 container.register<ITodoRepository>(TOKENS.TodoRepository, {
   useFactory: (c) => {
     const todoApi = c.resolve<ITodoApi>(TOKENS.TodoApi);
-    return new TodoRepositoryMock(todoApi);
+    return new TodoRepository(todoApi);
   },
 });
 

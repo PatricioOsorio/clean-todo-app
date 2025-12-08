@@ -5,7 +5,7 @@ import type { ITodoApi } from '../http/models';
 import type { ITodoRepository } from '@/domain/repositories';
 
 @injectable()
-export class TodoRepositoryMock implements ITodoRepository {
+export class TodoRepository implements ITodoRepository {
   constructor(private readonly api: ITodoApi) {}
 
   async getAll(): Promise<ITodo[]> {
