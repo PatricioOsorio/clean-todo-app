@@ -29,7 +29,9 @@ export const useTodosPage = () => {
   };
 
   useEffect(() => {
-    fetchTodos();
+    (async () => {
+      await fetchTodos();
+    })();
   }, []);
 
   const handleToggleTodo = async (id: string) => {

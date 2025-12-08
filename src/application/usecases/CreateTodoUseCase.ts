@@ -4,7 +4,6 @@ import type { ITodo } from '@/domain/entities';
 import type { ITodoRepository } from '@/domain/repositories';
 import type { IUseCase } from './IUseCase';
 
-// @injectable()
 export class CreateTodoUseCase implements IUseCase<ICreateTodoDTO, ITodo> {
   constructor(private readonly todoRepository: ITodoRepository) {}
 
